@@ -4,5 +4,5 @@
   "description" : "This is a Test Project",
   "version" : "1.0.0",
   "website" : "https://nexoscript.com",
-  "main-file": "main.nexovm"
+  "main_file": "main.nexovm"
 }
