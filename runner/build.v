@@ -5,7 +5,7 @@ import runner.build
 
 pub fn parse_build_file(path string) string {
 	// Get a list of all files in the directory
-	files := os.ls(os.join_path(path, '..')) or {
+	files := os.ls(path) or {
 		eprintln('Failed to list directory: ${err}')
 		return ''
 	}
@@ -13,6 +13,7 @@ pub fn parse_build_file(path string) string {
 	// Find the first file with a `.nexoscript` extension
 	mut project_file := ''
 	for file in files {
+		println(file)
 		if file.ends_with('.nexoproject') {
 			project_file = file
 			break
@@ -25,8 +26,8 @@ pub fn parse_build_file(path string) string {
 	}
 
 	// Check if a .nexoproject file exists
-	if os.exists(os.join_path(path, '..', project_file)) {
-		ctx := os.read_file(os.join_path(path, '..', project_file)) or {
+	if os.exists(os.join_path(path, project_file)) {
+		ctx := os.read_file(os.join_path(path, project_file)) or {
 			panic('Failed to read .nexoproject file')
 		}
 

@@ -16,7 +16,7 @@ fn main() {
 			}
 			'-build-run' {
 				compiler.start_compiler(args[2])
-				runner.start_runner(args[2] + '/build')
+				runner.start_runner(args[2])
 			}
 			else {
 				println('Unknown Argument')
