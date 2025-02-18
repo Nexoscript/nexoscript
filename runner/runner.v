@@ -10,7 +10,7 @@ pub fn start_runner(path string) {
 	main_file := parse_build_file(path)
 	if main_file == '' {
 		println('main_file is empty')
-	} else {
-		println(main_file)
+		return
 	}
+	println(main_file)
 }
