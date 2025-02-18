@@ -10,6 +10,11 @@ method main {
 
 method main(array<str> args) {
   println "Starting programm ${NAME} with args: ${args}"
+  var tom = Person{
+    name="Tom Handrick",
+    age=17,
+    friends=[]
+  }
   var fabi = Person{
     name="Fabi K.",
     age=21,
@@ -20,12 +25,10 @@ method main(array<str> args) {
     age=19,
     friends=[]
   }
-  var person = Person{
-    name="Tom Handrick",
-    age=17,
-    friends=[fabi, jason]
-  }
-  var personObject = json.parse(person)
+  tom.friends().append(fabi, jason)
+  fabi.friends().append(tom)
+  jason.friends().append(tom)
+  var personObject = json.parse(tom)
   var peoplePath = path.join(path.absolute, "people")
   json.save(personObject, peoplePath, "person.json")
 }
@@ -80,7 +83,7 @@ define class WeekShopping(array<Item> items) based Shopping {
   private final double sum
 
   @Deprecated{
-    text="This method is signed as removal and will removed in a later version. Please use WeekShopping#collect(items) to prevent unexpected errors!"
+    text="This method is signed as removal and will removed in a later version. Please use WeekShopping#collect(items) to prevent unexpected errors!",
     since="0.3.5"
   }
   method collect(Item item) {
