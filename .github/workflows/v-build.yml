@@ -15,16 +15,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Install the V compiler
+      # Step 2: Install dependencies
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y unzip curl
+
+      # Step 3: Install V compiler
       - name: Install V
         run: |
           curl -LO https://github.com/vlang/v/releases/latest/download/v_linux.zip
           unzip v_linux.zip
           chmod +x v/v
-          sudo mv v/v /usr/local/bin/
+          sudo mv v/v /usr/local/bin/v
 
+      # Step 4: Verify V installation
+      - name: Verify V installation
+        run: v version
 
-      # Step 3: Build the project (adjust the command if your entry file is different)
+      # Step 5: Build the project
       - name: Build project
-        run: |
-          v .
+        run: v run main.v
