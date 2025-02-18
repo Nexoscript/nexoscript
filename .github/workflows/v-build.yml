@@ -27,4 +27,4 @@ jobs:
       # Step 3: Build the project (adjust the command if your entry file is different)
       - name: Build project
         run: |
-          v/v -o nexoscript build main.v
+          v -o nexoscript build main.v
