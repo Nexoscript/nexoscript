@@ -18,9 +18,10 @@ jobs:
       # Step 2: Install the V compiler
       - name: Install V
         run: |
-          curl -O https://vlang.io/x/v
+          curl -L -O https://vlang.io/x/v
           chmod +x v
           sudo mv v /usr/local/bin/
+
 
       # Step 3: Build the project (adjust the command if your entry file is different)
       - name: Build project
