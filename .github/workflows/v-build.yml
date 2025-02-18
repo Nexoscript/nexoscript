@@ -18,12 +18,13 @@ jobs:
       # Step 2: Install the V compiler
       - name: Install V
         run: |
-          curl -L -O https://vlang.io/x/v
-          chmod +x v
-          sudo mv v /usr/local/bin/
+          curl -LO https://github.com/vlang/v/releases/latest/download/v_linux.zip
+          unzip v_linux.zip
+          chmod +x v/v
+          sudo mv v/v /usr/local/bin/
 
 
       # Step 3: Build the project (adjust the command if your entry file is different)
       - name: Build project
         run: |
-          v -o nexoscript build main.v
+          v/v -o nexoscript build main.v
