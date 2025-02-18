@@ -1,0 +1,29 @@
+name: V Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Install the V compiler
+      - name: Install V
+        run: |
+          curl -O https://vlang.io/x/v
+          chmod +x v
+          sudo mv v /usr/local/bin/
+
+      # Step 3: Build the project (adjust the command if your entry file is different)
+      - name: Build project
+        run: |
+          # Replace 'main.v' with your project's entry point if needed
+          v -o nexoscript build main.v
