@@ -1,0 +1,55 @@
+import json
+
+private final NAME = "Syntaxprogramm"
+
+method main {
+  println "Starting programm ${NAME}"
+}
+
+method main(array[str] args) {
+  println "Starting programm ${NAME} with args: ${args}"
+  var person = Person{
+    name="Tom Handrick",
+    age=17,
+    friends=["Fabi K.", "Jason E."]
+  }
+}
+
+define class Person extends IPerson {
+  private final string name: get
+  private final integer age: get, set
+  private final array[Person] friends: get, set
+
+  construct(string name, integer age, array[Person] friends) {
+    this.name = name
+    this.age = age
+    this.friends = friends
+  }
+
+  @interface
+  sendPacket() {
+    
+  }
+}
+
+define class Person(string name, integer age, array[Person] friends) {
+  private final string name: get
+  private final integer age: get, set
+  private final array[Person] friends: get, set
+}
+
+define enum Gender {
+  MALE("männlich"),
+  FEMALE("weiblich"),
+  NONE_BINARY("non binär");
+
+  private final str text: get
+
+  private construct(str text) {
+    this.text = text;
+  }
+}
+
+define interface IPerson {
+  sendPacket()
+}
