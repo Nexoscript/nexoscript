@@ -19,18 +19,22 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y unzip curl
 
-      # Step 3: Install V compiler
+      # Step 3: Install V from source (to ensure vlib is included)
       - name: Install V
         run: |
-          curl -LO https://github.com/vlang/v/releases/latest/download/v_linux.zip
-          unzip v_linux.zip
-          chmod +x v/v
-          sudo mv v/v /usr/local/bin/v
+          git clone --depth=1 https://github.com/vlang/v.git
+          cd v
+          make
+          sudo mv v /usr/local/bin/v
 
       # Step 4: Verify V installation
       - name: Verify V installation
         run: v version
 
-      # Step 5: Build the project
+      # Step 5: Set VLIB path
+      - name: Set VLIB environment variable
+        run: echo "VLIB=/usr/local/bin/v/vlib" >> $GITHUB_ENV
+
+      # Step 6: Build the project
       - name: Build project
         run: v run main.v
