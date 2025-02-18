@@ -74,7 +74,7 @@ define interface IPerson {
   sendPacket()
 }
 
-define class<abstract> Shopping {
+define abstract Shopping {
   private final array<Item> items: get, set
 
   abstract method buy(): bool
