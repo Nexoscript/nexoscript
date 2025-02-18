@@ -1,0 +1,40 @@
+name: V Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Install dependencies
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y unzip curl build-essential
+
+      # Step 3: Install V compiler from source to ensure vlib is included
+      - name: Install V
+        run: |
+          git clone --depth=1 https://github.com/vlang/v.git ~/v
+          cd ~/v
+          make
+          sudo mv ~/v/v /usr/local/bin/v
+
+      # Step 4: Verify V installation
+      - name: Verify V installation
+        run: v version
+
+      # Step 5: Set VLIB environment variable
+      - name: Set VLIB environment variable
+        run: echo "VLIB=$HOME/v/vlib" >> $GITHUB_ENV
+
+      # Step 6: Build the project
+      - name: Build project
+        run: v run main.v

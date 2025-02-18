@@ -74,7 +74,7 @@ define interface IPerson {
   sendPacket()
 }
 
-define class<abstract> Shopping {
+define abstract Shopping {
   private final array<Item> items: get, set
 
   abstract method buy(): bool
@@ -116,7 +116,7 @@ define class Item(string name, doub price, image icon) {
   private final image icon: get, set
 }
 
-define interface<annotation> Deprecated {
+define annotation Deprecated {
   @Warning
   text(): string
   since(): string
