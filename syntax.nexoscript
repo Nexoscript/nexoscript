@@ -8,14 +8,24 @@ method main {
 
 method main(array[str] args) {
   println "Starting programm ${NAME} with args: ${args}"
+  var fabi = Person{
+    name="Fabi K.",
+    age=21,
+    friends=[]
+  }
+  var jason = Person{
+    name="Jason E.",
+    age=19,
+    friends=[]
+  }
   var person = Person{
     name="Tom Handrick",
     age=17,
-    friends=["Fabi K.", "Jason E."]
+    friends=[fabi, jason]
   }
 }
 
-define class Person extends IPerson {
+define class Person interface(or)based IPerson {
   private final string name: get
   private final integer age: get, set
   private final array[Person] friends: get, set
@@ -52,4 +62,21 @@ define enum Gender {
 
 define interface IPerson {
   sendPacket()
+}
+
+define abstract class Shopping {
+  private final array[Item] items: get, set
+
+  abstract method buy(): bool
+}
+
+define class WeekShopping based Shopping {
+  private final double sum
+
+  @abstract
+  method buy(): bool {
+    for (item in items) {
+      sum + item.price()
+    }
+  }
 }
