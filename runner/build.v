@@ -13,7 +13,6 @@ pub fn parse_build_file(path string) string {
 	// Find the first file with a `.nexoscript` extension
 	mut project_file := ''
 	for file in files {
-		println(file)
 		if file.ends_with('.nexoproject') {
 			project_file = file
 			break

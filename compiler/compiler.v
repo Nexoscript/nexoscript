@@ -32,25 +32,26 @@ pub fn start_compiler(path string) {
 		return
 	}
 
-	mut project_file_exist := false
+	mut project_file := ''
 
 	for file in files {
 		if os.file_ext(file) == '.nexoproject' {
-			project_file_exist = true
+			project_file = file
 			println('Found project file')
 			break
 		}
 	}
+
+	if project_file == '' {
+		println("Can't found project file")
+		return
+	}
+
 	for file in src_files {
 		target_file := '${src_path}/${file}'
 		if os.file_ext(target_file) != '.nexoscript' {
 			println('Skipping: ${file} (Invalid extension, use .nexoscript)')
 			continue
-		}
-
-		if !project_file_exist {
-			println("Can't found project file")
-			break
 		}
 
 		mut lines := os.read_lines(target_file) or {
@@ -82,22 +83,38 @@ pub fn start_compiler(path string) {
 		}
 
 		// Ensure output directory exists
-		output_dir := '${path}/build'
+		output_dir := os.join_path(path, 'build')
 		if !os.exists(output_dir) {
 			os.mkdir(output_dir) or {
 				eprintln('Failed to create output directory: ${output_dir}')
 				continue
 			}
+		} else {
+			build_files := os.ls(output_dir) or {
+				eprintln('Error reading directory: ${err}')
+				return
+			}
+			for build_file in build_files {
+				os.rm(os.join_path(output_dir, build_file)) or {
+					panic("Can't delete file: ${file}")
+				}
+			}
 		}
 
 		// Write compiled output
-		output_file := '${output_dir}/${file.replace('.nexoscript', '.nexovm')}'
+		output_file := '${output_dir}/${file.replace('.nexoscript', '.ns.compiled')}'
 		os.write_file(output_file, modified_lines.join('\n')) or {
 			eprintln('Error writing to file: ${output_file}')
 			continue
 		}
 
 		println('Compiled: ${src_path}/${file} → ${output_file}')
+	}
+	project_file_path := os.join_path(path, project_file)
+
+	os.cp(project_file_path, os.join_path(path, 'build', 'manifest.nexoproject')) or {
+		eprintln('Error copying .nexoproject: ${err}')
+		return
 	}
 }
 
