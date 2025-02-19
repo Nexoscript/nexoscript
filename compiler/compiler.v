@@ -47,12 +47,6 @@ pub fn start_compiler(path string) {
 		return
 	}
 
-	project_file_path := os.join_path(path, project_file)
-	os.cp(project_file_path, os.join_path(path, 'build', 'manifest.nexoproject')) or {
-		eprintln('Error copying .nexoproject: ${err}')
-		return
-	}
-
 	for file in src_files {
 		target_file := '${src_path}/${file}'
 		if os.file_ext(target_file) != '.nexoscript' {
@@ -108,13 +102,19 @@ pub fn start_compiler(path string) {
 		}
 
 		// Write compiled output
-		output_file := '${output_dir}/${file.replace('.nexoscript', '.nsc')}'
+		output_file := '${output_dir}/${file.replace('.nexoscript', '.ns.compiled')}'
 		os.write_file(output_file, modified_lines.join('\n')) or {
 			eprintln('Error writing to file: ${output_file}')
 			continue
 		}
 
 		println('Compiled: ${src_path}/${file} → ${output_file}')
+	}
+	project_file_path := os.join_path(path, project_file)
+
+	os.cp(project_file_path, os.join_path(path, 'build', 'manifest.nexoproject')) or {
+		eprintln('Error copying .nexoproject: ${err}')
+		return
 	}
 }
 
