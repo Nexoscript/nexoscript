@@ -25,16 +25,16 @@ jobs:
           git clone --depth=1 https://github.com/vlang/v.git ~/v
           cd ~/v
           make
-          sudo mv ~/v/v /usr/local/bin/v
+          sudo ln-s ~/v/v /usr/local/bin/
 
       # Step 4: Verify V installation
       - name: Verify V installation
         run: v version
 
-      # Step 5: Set VLIB environment variable
-      - name: Set VLIB environment variable
-        run: echo "VLIB=$HOME/v/vlib" >> $GITHUB_ENV
+      # Step 5: Init the project
+      - name: Init V project
+        run: v init
 
       # Step 6: Build the project
       - name: Build project
-        run: v run main.v
+        run: v main.v
