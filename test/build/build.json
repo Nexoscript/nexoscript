@@ -1,8 +1,0 @@
-{
-  "project" : "TestProject",
-  "author" : "DragonRex",
-  "description" : "This is a Test Project",
-  "version" : "1.0.0",
-  "website" : "https://nexoscript.com",
-  "main-file": "main.nexovm"
-}
