@@ -22,10 +22,11 @@ jobs:
       # Step 3: Install V compiler from source to ensure vlib is included
       - name: Install V
         run: |
-          git clone --depth=1 https://github.com/vlang/v.git ~/v
-          cd ~/v
+          git clone --depth=1 https://github.com/vlang/v.git
+          cd ./v
           make
-          sudo ln-s ~/v/v /usr/local/bin/
+          cd ..
+          sudo ln -s ./v/v /usr/local/bin/
 
       # Step 4: Verify V installation
       - name: Verify V installation
