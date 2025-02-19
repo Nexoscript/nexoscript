@@ -26,16 +26,15 @@ jobs:
           cd ./v
           make
           cd ..
-          sudo ln -s ./v/v /usr/local/bin/
 
       # Step 4: Verify V installation
       - name: Verify V installation
-        run: v version
+        run: ./v/v version
 
       # Step 5: Init the project
       - name: Init V project
-        run: v init
+        run: ./v/v init
 
       # Step 6: Build the project
       - name: Build project
-        run: v main.v
+        run: ./v/v main.v
