@@ -4,7 +4,7 @@ project: {
   author: "ezTxmMC & DragonRex"
   main: {
     file: "src/main.nexoscript"
-    method: "main"
+    method: "printMain"
   }
   libraries: {
     json: "libs/json"

@@ -13,7 +13,6 @@ pub fn (mut handler NexoProjectHandler) load_project() ? {
 	println(handler.file_path)
 	content := os.read_file(handler.file_path) or { panic('Error loading project: ${err}') }
 
-	// Manually parse the content without using JSON
 	lines := content.split('\n')
 	mut current_key := ''
 
@@ -35,7 +34,7 @@ pub fn (mut handler NexoProjectHandler) load_project() ? {
 			continue
 		}
 
-		if ':' !in trimmed {
+		if !trimmed.contains(':') { // Fixed here
 			continue
 		}
 
@@ -60,15 +59,16 @@ pub fn (mut handler NexoProjectHandler) load_project() ? {
 	println('Project loaded successfully.')
 }
 
-pub fn (handler NexoProjectHandler) get(section string, key string) ?string {
-	return handler.project_data[section][key] or { return error('Key not found') }
+pub fn (handler NexoProjectHandler) get(section string, key string) string {
+	return handler.project_data[section][key] or { panic('Key not found') } // Fixed here
 }
 
 pub fn (mut handler NexoProjectHandler) set(section string, key string, value string) {
 	if section !in handler.project_data {
 		handler.project_data[section] = map[string]string{}
 	}
-	handler.project_data[section][key] = value
+	// Trim quotes around key only
+	handler.project_data[section][key.trim('"')] = value
 }
 
 pub fn (mut handler NexoProjectHandler) add(section string, key string, value string) {
@@ -79,4 +79,19 @@ pub fn (mut handler NexoProjectHandler) remove(section string, key string) {
 	if section in handler.project_data {
 		handler.project_data[section].delete(key)
 	}
+}
+
+pub fn (handler NexoProjectHandler) save() ? {
+	mut content := ''
+
+	for section, data in handler.project_data {
+		content += '${section}: {\n'
+		for key, value in data {
+			content += '  ${key}: "${value}"\n' // Quotes only around values
+		}
+		content += '}\n\n'
+	}
+
+	os.write_file(handler.file_path, content) or { panic('Error saving project: ${err}') }
+	println('Project saved successfully.')
 }

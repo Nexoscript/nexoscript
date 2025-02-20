@@ -127,7 +127,10 @@ pub fn start_compiler(path string) {
 		eprintln(err)
 		return
 	}
-	// handler.set("main", "file", "manifest.nexoproject")
+	splited_file := handler.get('main', 'file').split('/')
+	new_file_name := splited_file[splited_file.len - 1]
+	handler.set('main', 'file', new_file_name.split('.nexoscript')[0] + '.ns.compiled')
+	handler.save()
 }
 
 fn extract_tokens(line string) []string {

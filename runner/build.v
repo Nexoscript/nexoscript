@@ -22,14 +22,6 @@ pub fn parse_build_file(path string) build.Main {
 		}
 	}
 
-	if project_file == '' {
-		println('No .nexoproject file available')
-		return build.Main{
-			file:   ''
-			method: ''
-		}
-	}
-
 	// Check if a .nexoproject file exists
 	if os.exists(os.join_path(path, project_file)) {
 		ctx := os.read_file(os.join_path(path, project_file)) or {
@@ -48,6 +40,7 @@ pub fn parse_build_file(path string) build.Main {
 		if project.version != '' {
 			println('Version: ' + project.version)
 		}
+		println(project.main)
 		if project.main.file != '' {
 			println('Main_File: ' + project.main.file)
 			return project.main

@@ -49,7 +49,8 @@ pub fn parse_nexoproject(file_content string) ?Project {
 		if in_main {
 			if line_trimmed.starts_with('file:') {
 				main_file = extract_value(line_trimmed)
-			} else if line_trimmed.starts_with('method:') {
+			}
+			if line_trimmed.starts_with('method:') {
 				main_method = extract_value(line_trimmed)
 			}
 		}

@@ -2,13 +2,16 @@ project: {
   name: "test"
   version: "0.0.0-dev1"
   author: "ezTxmMC & DragonRex"
-  main: {
-    file: "src/main.nexoscript"
-    method: "main"
-  }
-  libraries: {
-    json: "libs/json"
-    toml: "libs/toml"
-    yaml: "libs/yaml"
-  }
 }
+
+main: {
+  file: "main.ns.compiled"
+  method: "printMain"
+}
+
+libraries: {
+  json: "libs/json"
+  toml: "libs/toml"
+  yaml: "libs/yaml"
+}
+

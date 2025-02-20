@@ -1,7 +1,6 @@
 module runner
 
 import os
-import net.http.file
 
 pub fn start_runner(path string) {
 	println('#################################')
