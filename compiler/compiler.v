@@ -1,5 +1,6 @@
 module compiler
 
+import runner
 import os
 
 pub fn start_compiler(path string) {
@@ -112,10 +113,21 @@ pub fn start_compiler(path string) {
 	}
 	project_file_path := os.join_path(path, project_file)
 
-	os.cp(project_file_path, os.join_path(path, 'build', 'manifest.nexoproject')) or {
+	new_project_file_path := os.join_path(path, 'build', 'manifest.nexoproject')
+
+	os.cp(project_file_path, new_project_file_path) or {
 		eprintln('Error copying .nexoproject: ${err}')
 		return
 	}
+
+	mut handler := runner.NexoProjectHandler{
+		file_path: new_project_file_path
+	}
+	handler.load_project() or {
+		eprintln(err)
+		return
+	}
+	// handler.set("main", "file", "manifest.nexoproject")
 }
 
 fn extract_tokens(line string) []string {

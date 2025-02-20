@@ -3,7 +3,7 @@ project: {
   version: "0.0.0-dev1"
   author: "ezTxmMC & DragonRex"
   main: {
-    src: "main.nexoscript"
+    file: "src/main.nexoscript"
     method: "main"
   }
   libraries: {

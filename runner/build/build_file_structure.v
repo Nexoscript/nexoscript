@@ -12,7 +12,7 @@ pub fn parse_nexoproject(file_content string) ?Project {
 	mut name := ''
 	mut version := ''
 	mut author := ''
-	mut main_src := ''
+	mut main_file := ''
 	mut main_method := ''
 	mut libraries := map[string]string{}
 
@@ -47,8 +47,8 @@ pub fn parse_nexoproject(file_content string) ?Project {
 		}
 
 		if in_main {
-			if line_trimmed.starts_with('src:') {
-				main_src = extract_value(line_trimmed)
+			if line_trimmed.starts_with('file:') {
+				main_file = extract_value(line_trimmed)
 			} else if line_trimmed.starts_with('method:') {
 				main_method = extract_value(line_trimmed)
 			}
@@ -80,7 +80,7 @@ pub fn parse_nexoproject(file_content string) ?Project {
 		version:   version
 		author:    author
 		main:      Main{
-			src:    main_src
+			file:   main_file
 			method: main_method
 		}
 		libraries: libraries
@@ -98,6 +98,6 @@ pub:
 
 pub struct Main {
 pub:
-	src    string
+	file   string
 	method string
 }
