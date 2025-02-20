@@ -4,4 +4,6 @@ import json
 
 method printMain() {
     println "Hello World!"
+    print "Ich bims "
+    print "da Typ ausm Wald"
 }

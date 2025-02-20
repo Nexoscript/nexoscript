@@ -17,7 +17,6 @@ pub fn start_runner(path string) {
 	 */
 
 	file := NexoFile{}.construct(path)
-	println('Debug1')
 	for function in file.functions {
 		for instr in function.instructions {
 			instr.execute()

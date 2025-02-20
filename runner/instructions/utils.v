@@ -3,10 +3,15 @@ module instructions
 import regex
 
 pub fn extract_between_quotes(text string) string {
-	mut re := regex.regex_opt(r'"(.*?)"') or {panic('Regex Error')}
+	// Simpler regex: match anything between quotes
+	mut re := regex.regex_opt(r'"([^"]*)"') or { panic('Regex Error') }
 	matches := re.find_all_str(text)
 	if matches.len > 0 {
-		return matches[0][1..] // Entferne die äußeren Anführungszeichen
+		mut result := matches[0]
+		if result.starts_with('"') && result.ends_with('"') {
+			result = result[1..result.len - 1]
+		}
+		return result.replace(r'\"', '"')
 	}
-	panic('Kein passender Text gefunden')
+	panic('No text found')
 }
