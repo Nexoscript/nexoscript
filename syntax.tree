@@ -1,12 +1,19 @@
 --------- File ------------
     - Package
     - Imports
+    - Variables
     - Method
         - Imports
         - Instructions
         - Arrays
         - Variables
     - Class
+        - Variables
+        - Constructor
+        - Methods
     - Interface
+        - Definied methods
     - Abstract
-    - Annotation 
+        - Definied and abstact methods
+    - Annotation
+        - Definied methods
