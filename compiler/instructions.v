@@ -16,4 +16,5 @@ const instructions = {
 	'println':    '0xa2'
 	'package':    '0x91'
 	'import':     '0x92'
+	'string':     '0xd1'
 }

@@ -27,6 +27,11 @@ pub fn (f Function) construct(name string, lines []string) Function {
 			function.instructions << println1
 			continue
 		}
+		if line.starts_with('0xd1') {
+			mut str := instructions.String{}
+			str = str.construct(line) as instructions.String
+			function.instructions << str
+		}
 	}
 	return function
 }

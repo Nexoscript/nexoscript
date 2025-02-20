@@ -6,4 +6,6 @@ method printMain() {
     println "Hello World!"
     print "Ich bims "
     print "da Typ ausm Wald"
+    string name = "Thomas"
+    println name
 }
