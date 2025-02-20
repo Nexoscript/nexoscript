@@ -1,4 +1,4 @@
-module instructions
+module runner
 
 import regex
 

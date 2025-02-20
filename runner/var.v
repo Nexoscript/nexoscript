@@ -1,11 +1,11 @@
-module instructions
+module runner
 
 pub struct Var implements Instruction {
 pub mut:
 	ctx string
 }
 
-pub fn (var Var) construct(line string) Instruction {
+pub fn (var Var) construct(line string, function Function) Instruction {
 	return var
 }
 
