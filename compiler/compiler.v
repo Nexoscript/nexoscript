@@ -1,5 +1,6 @@
 module compiler
 
+import runner
 import os
 
 pub fn start_compiler(path string) {
@@ -112,10 +113,24 @@ pub fn start_compiler(path string) {
 	}
 	project_file_path := os.join_path(path, project_file)
 
-	os.cp(project_file_path, os.join_path(path, 'build', 'manifest.nexoproject')) or {
+	new_project_file_path := os.join_path(path, 'build', 'manifest.nexoproject')
+
+	os.cp(project_file_path, new_project_file_path) or {
 		eprintln('Error copying .nexoproject: ${err}')
 		return
 	}
+
+	mut handler := runner.NexoProjectHandler{
+		file_path: new_project_file_path
+	}
+	handler.load_project() or {
+		eprintln(err)
+		return
+	}
+	splited_file := handler.get('main', 'file').split('/')
+	new_file_name := splited_file[splited_file.len - 1]
+	handler.set('main', 'file', new_file_name.split('.nexoscript')[0] + '.ns.compiled')
+	handler.save()
 }
 
 fn extract_tokens(line string) []string {

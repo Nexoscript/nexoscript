@@ -1,16 +1,30 @@
 module runner
 
+import os
+
 pub fn start_runner(path string) {
 	println('#################################')
 	println('#       Nexoscript Runner       #')
 	println('#################################')
-
 	println('Selected Path: ' + path)
 
-	main_file := parse_build_file(path)
-	if main_file == '' {
+	main := parse_build_file(path)
+	if main.file == '' {
 		println('main_file is empty')
 		return
 	}
-	println(main_file)
+	nexo_file := NexoFile{}.construct(os.join_path(path, main.file))
+	mut found_main := false
+	for function in nexo_file.functions {
+		if function.name == main.method {
+			found_main = true
+			for instr in function.instructions {
+				instr.execute()
+			}
+		}
+	}
+	if !found_main {
+		println('Main method not found')
+		return
+	}
 }
