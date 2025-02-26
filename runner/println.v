@@ -3,27 +3,26 @@ module runner
 pub struct Println implements Instruction {
 pub mut:
 	ctx string
-	function runner.Function
+	function_name string
 }
 
-pub fn (p Println) construct(line string, function runner.Function) Instruction {
+pub fn (p Println) construct(line string) Instruction {
 	if line.contains('"') {
 		return Println{
 			ctx: extract_between_quotes(line)
-			function: function
 		}
 	}
-	println(p.function.variables)
 	mut graped_value := ''
-	for key, value in p.function.variables {
-		if line.split(' ')[1] == key {
-			graped_value = value
+	for function_name, variable in get_variables() {
+		for name, value in variable {
+			if line.split(' ')[1] == name {
+				graped_value = value
+			}
 		}
 	}
 	if graped_value != '' {
 		return Println{
 			ctx: graped_value
-			function: function
 		}
 	}
 	return p

@@ -4,7 +4,6 @@ pub struct Function {
 pub mut:
 	instructions []Instruction
 	name         string
-	variables	 map[string]string
 }
 
 pub fn (f Function) construct(name string, lines []string) Function {
@@ -15,22 +14,21 @@ pub fn (f Function) construct(name string, lines []string) Function {
 			return function
 		}
 		if line.starts_with('0xa1') {
-			mut print := Print{}
-			print = print.construct(line, function) as Print
+			mut print := Print{function_name: function.name}
+			print = print.construct(line) as Print
 			function.instructions << print
 			continue
 		}
 		if line.starts_with('0xa2') {
-			mut println1 := Println{}
-			println1 = println1.construct(line, function) as Println
+			mut println1 := Println{function_name: function.name}
+			println1 = println1.construct(line) as Println
 			function.instructions << println1
 			continue
 		}
 		if line.starts_with('0xd1') {
-			mut str := String{}
-			function.variables[str.name]="string:[" + str.value + "]"
-			str = str.construct(line, function) as String
-			str.value = ''
+			mut str := String{function_name: function.name}
+			str = str.construct(line) as String
+			add_variable(function.name, str.name, str.value)
 			continue
 		}
 	}

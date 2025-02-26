@@ -8,6 +8,8 @@ pub fn start_runner(path string) {
 	println('#################################')
 	println('Selected Path: ' + path)
 
+	init_variables()
+
 	main := parse_build_file(path)
 	if main.file == '' {
 		println('main_file is empty')
