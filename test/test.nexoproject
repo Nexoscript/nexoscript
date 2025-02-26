@@ -3,8 +3,8 @@ project: {
   version: "0.0.0-dev1"
   author: "ezTxmMC & DragonRex"
   main: {
-    src: "main.nexoscript"
-    method: "main"
+    file: "src/main.nexoscript"
+    method: "printMain"
   }
   libraries: {
     json: "libs/json"

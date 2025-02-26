@@ -3,11 +3,14 @@ module runner
 import os
 import runner.build
 
-pub fn parse_build_file(path string) string {
+pub fn parse_build_file(path string) build.Main {
 	// Get a list of all files in the directory
 	files := os.ls(path) or {
 		eprintln('Failed to list directory: ${err}')
-		return ''
+		return build.Main{
+			file:   ''
+			method: ''
+		}
 	}
 
 	// Find the first file with a `.nexoscript` extension
@@ -17,11 +20,6 @@ pub fn parse_build_file(path string) string {
 			project_file = file
 			break
 		}
-	}
-
-	if project_file == '' {
-		println('No .nexoproject file available')
-		return ''
 	}
 
 	// Check if a .nexoproject file exists
@@ -42,12 +40,16 @@ pub fn parse_build_file(path string) string {
 		if project.version != '' {
 			println('Version: ' + project.version)
 		}
-		if project.main.src != '' {
-			println('Main_File: ' + project.main.src)
-			return os.join_path(path, 'src', project.main.src)
+		println(project.main)
+		if project.main.file != '' {
+			println('Main_File: ' + project.main.file)
+			return project.main
 		} else {
 			println('No main file found')
-			return ''
+			return build.Main{
+				file:   ''
+				method: ''
+			}
 		}
 		if project.libraries.len > 0 {
 			println('Libraries:')
@@ -57,6 +59,9 @@ pub fn parse_build_file(path string) string {
 		}
 	} else {
 		println('No .nexoproject file found.')
-		return ''
+		return build.Main{
+			file:   ''
+			method: ''
+		}
 	}
 }
