@@ -1,7 +1,10 @@
 package main
 
-import json
+var name: string = "Tom"
+var age: int = 17
 
-method printMain() {
-    println "Hello World!"
+if age == 17 {
+  println name
+} else {
+  println "Unknown"
 }

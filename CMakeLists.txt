@@ -15,4 +15,5 @@ add_executable(nexoscript_v3 src/main.cpp
         src/nexoproject/NexoProject.cpp
         src/nexoproject/NexoProject.h
         src/util/PrintUtils.cpp
-        src/util/PrintUtils.h)
+        src/util/PrintUtils.h
+        src/util/Opcode.h)
