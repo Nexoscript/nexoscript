@@ -1,9 +1,9 @@
 package main
 
 var name: string = "Tom"
-var age: int = 17
+var age: int = 18
 
-if age == 17 {
+if age == 18 {
   println name
 } else {
   println "Unknown"

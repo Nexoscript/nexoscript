@@ -7,7 +7,7 @@
 int main() {
     PrintUtils::println("########## Starting NexoScript! ##########");
 
-    std::string path = "D:/Programing/clion-projects/nexoscript-v3/tests/testproject/test.nexoproject";
+    std::string path = "../tests/testproject/test.nexoproject";
     NexoProjectCfgReader reader = NexoProjectCfgReader();
     NexoProject projectConfig = reader.parseNexoProjectFile(path);
 
@@ -25,8 +25,8 @@ int main() {
 
 try {
     auto nexo_compiler = NexoCompiler(
-        "D:/Programing/clion-projects/nexoscript-v3/tests/testproject/src/main.nexoscript",
-        "D:/Programing/clion-projects/nexoscript-v3/tests/testproject/src/main.nexo"
+        "../tests/testproject/src/main.nexoscript",
+        "../tests/testproject/src/main.nexo"
     );
     
     if (!nexo_compiler.compile()) {
@@ -35,7 +35,7 @@ try {
     }
 
     auto nexo_engine = NexoEngine(
-        "D:/Programing/clion-projects/nexoscript-v3/tests/testproject/src/main.nexo"
+        "../tests/testproject/src/main.nexo"
     );
     
     if (!nexo_engine.compile()) {

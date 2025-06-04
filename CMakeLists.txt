@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.31)
-project(nexoscript_v3)
+project(nexoscript)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 26)
 
-add_executable(nexoscript_v3 src/main.cpp
+add_executable(nexoscript src/main.cpp
         src/nexoproject/NexoProjectCfgReader.cpp
         src/nexoproject/NexoProjectCfgReader.h
         src/util/StringUtils.cpp

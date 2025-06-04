@@ -14,7 +14,7 @@ method main(array<str> args) {
   println "Starting programm ${NAME} with args: ${args}"
   var tom = Person{
     name="Tom Handrick",
-    age=17,
+    age=18,
     friends=[]
   }
   var fabi = Person{
